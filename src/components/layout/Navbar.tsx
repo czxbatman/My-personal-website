@@ -11,16 +11,8 @@ import {
 import { ACCENTS, ACCENT_META, useSiteState, type Accent } from "@/hooks/use-site"
 import { profile } from "@/content/profile"
 import { cn } from "@/lib/utils"
-
-const links = [
-  { to: "/", label: "首页" },
-  { to: "/projects", label: "项目" },
-  { to: "/blog", label: "博客" },
-  { to: "/gallery", label: "画廊" },
-  { to: "/resume", label: "简历" },
-  { to: "/now", label: "近况" },
-  { to: "/about", label: "关于" },
-]
+import { siteNavigation as links } from "@/content/navigation"
+import "@/components/capsules.css"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -58,18 +50,12 @@ export function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-0.5 lg:flex">
+        <nav aria-label="主导航" className="navbar-capsules hidden items-center gap-0.5 lg:flex">
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
               end={l.to === "/"}
-              className={({ isActive }) =>
-                cn(
-                  "rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-foreground",
-                  isActive ? "font-medium text-brand" : "text-muted-foreground"
-                )
-              }
             >
               {l.label}
             </NavLink>
@@ -135,26 +121,22 @@ export function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
+            aria-label="主导航"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="overflow-hidden border-t border-border/60 lg:hidden"
           >
-            <div className="flex flex-col gap-1 px-4 py-3">
+            <div className="mobile-capsule-menu">
               {links.map((l) => (
                 <NavLink
                   key={l.to}
                   to={l.to}
                   end={l.to === "/"}
                   onClick={() => setMenuOpen(false)}
-                  className={({ isActive }) =>
-                    cn(
-                      "rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent",
-                      isActive ? "font-medium text-brand" : "text-muted-foreground"
-                    )
-                  }
                 >
+                  <l.icon size={15} aria-hidden="true" />
                   {l.label}
                 </NavLink>
               ))}

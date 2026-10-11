@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, ChevronDown, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight, ChevronDown } from "lucide-react"
 import {
-  Magnetic,
   Marquee,
   ParallaxBlobs,
   Reveal,
@@ -16,6 +14,8 @@ import { posts } from "@/content/posts"
 import { now } from "@/content/now"
 import { growth } from "@/content/growth"
 import { usePageMeta } from "@/hooks/use-site"
+import { CapsuleLinks } from "@/components/CapsuleLinks"
+import { homeShortcuts, projectShortcuts } from "@/content/navigation"
 
 function Hero() {
   return (
@@ -50,29 +50,9 @@ function Hero() {
             <p className="mt-5 max-w-xl leading-relaxed text-muted-foreground">{profile.intro}</p>
           </Reveal>
 
-          <Reveal delay={0.32} className="mt-8 flex flex-wrap items-center gap-3">
-            <Magnetic>
-              <Button size="lg" asChild className="rounded-xl px-6">
-                <Link to="/projects">
-                  看看我的项目
-                  <ArrowRight className="ml-1.5 h-4 w-4" />
-                </Link>
-              </Button>
-            </Magnetic>
-            <Magnetic strength={0.18}>
-              <Button size="lg" variant="outline" asChild className="rounded-xl px-6">
-                <Link to="/resume">在线简历</Link>
-              </Button>
-            </Magnetic>
-            {profile.email && (
-              <a
-                href={"mailto:" + profile.email}
-                className="ml-1 grid h-10 w-10 place-items-center rounded-xl border border-border text-muted-foreground transition-colors hover:border-brand/50 hover:text-brand"
-                aria-label="发邮件"
-              >
-                <Mail className="h-4 w-4" />
-              </a>
-            )}
+          <Reveal delay={0.32} className="shortcut-board">
+            <p className="shortcut-board-heading"><span aria-hidden="true"/>选一站，直接出发<small>EXPLORE / 06</small></p>
+            <CapsuleLinks items={homeShortcuts} label="首页快捷浏览" tools />
           </Reveal>
         </div>
 
@@ -119,6 +99,7 @@ function Featured() {
           </Link>
         }
       />
+      <div className="project-shortcut-bar"><span>直达这三个项目</span><CapsuleLinks items={projectShortcuts} label="精选项目直达" compact /></div>
       <div className="featured-grid grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((p, i) => (
           <Reveal key={p.slug} delay={i * 0.08}>

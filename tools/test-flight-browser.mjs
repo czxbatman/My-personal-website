@@ -43,7 +43,7 @@ try {
   await page.waitForFunction(() => document.documentElement.dataset.helicopter === 'collapsed');
   assert.deepEqual(await page.locator('html').evaluate(el => ({ dark: el.classList.contains('dark'), accent: el.dataset.accent, background: getComputedStyle(el).getPropertyValue('--background').trim() })), original);
   check('point mode takes off; Escape holds; collapse lands before restoring dark preference');
-  await page.getByRole('navigation').getByRole('link', { name: '项目', exact: true }).click();
+  await page.getByRole('navigation', { name: '主导航', exact: true }).getByRole('link', { name: '项目', exact: true }).click();
   await page.getByRole('textbox', { name: '搜索项目' }).fill('Blender');
   await page.getByRole('button', { name: '列表视图', exact: true }).click();
   assert.equal(await page.locator('.project-results article').count(), 1);
@@ -79,7 +79,7 @@ try {
   await page.getByRole('combobox').fill('Desktop Helicopter');
   await page.keyboard.press('Enter');
   await page.waitForURL('**/projects/desktop-helicopter');
-  await page.getByRole('navigation').getByRole('link', { name: '简历', exact: true }).click();
+  await page.getByRole('navigation', { name: '主导航', exact: true }).getByRole('link', { name: '简历', exact: true }).click();
   await page.evaluate(() => { window.print = () => { document.body.dataset.printRequested = 'true'; }; });
   await page.getByRole('button', { name: '打印 / 导出 PDF' }).click();
   assert.equal(await page.locator('body').getAttribute('data-print-requested'), 'true');
@@ -97,11 +97,11 @@ try {
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('figure').count(), 26);
   check('finance detail, bounded claims, related gallery and hidden profile placeholders');
-  await page.getByRole('navigation').getByRole('link', { name: '简历', exact: true }).click();
+  await page.getByRole('navigation', { name: '主导航', exact: true }).getByRole('link', { name: '简历', exact: true }).click();
   await page.getByRole('button', { name: '展开直升机控制' }).click();
   await page.getByRole('button', { name: '起飞', exact: true }).click();
   await page.waitForFunction(() => document.documentElement.dataset.flight === 'active');
-  await page.getByRole('navigation').getByRole('link', { name: '项目', exact: true }).click();
+  await page.getByRole('navigation', { name: '主导航', exact: true }).getByRole('link', { name: '项目', exact: true }).click();
   await page.waitForURL('**/projects');
   assert.equal(await page.locator('html').getAttribute('data-flight'), 'active');
   await page.getByRole('button', { name: '返航退出' }).click();
@@ -119,7 +119,7 @@ try {
   await mobile.getByRole('button', { name: '返航', exact: true }).click(); await parked(mobile);
   await mobile.getByRole('button', { name: '收起直升机控制', exact: true }).click();
   await mobile.getByRole('button', { name: '打开菜单' }).click();
-  await mobile.getByRole('navigation').getByRole('link', { name: '项目', exact: true }).click();
+  await mobile.getByRole('navigation', { name: '主导航', exact: true }).getByRole('link', { name: '项目', exact: true }).click();
   await mobile.getByRole('button', { name: '列表视图' }).click();
   assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await mobile.waitForTimeout(500); await mobile.screenshot({ path: 'shots/verified-mobile-projects.png' });

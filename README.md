@@ -10,6 +10,7 @@
 - 首页左右分区：右侧 3D 飞行展示，停机拖动旋转；六个控制入口和空白处指点飞行。内容页和手机采用底部可展开入口。
 - 飞行模型与控制逻辑源自 Desktop Helicopter V5.0.3，网页不接入桌面系统或本地笔记；模型加载失败提供静态图。
 - React、TypeScript、Vite、Tailwind CSS 与 Framer Motion 构建。
+- 胶囊导航：首屏六个页面入口与圆形 GitHub / 搜索按钮，精选区三个项目直达入口，顶部、手机菜单与页尾导航统一展示当前页面。
 
 ## Local development
 
@@ -50,6 +51,14 @@ node tools/test-flight-browser.mjs
 ```
 
 默认测试地址为 `http://127.0.0.1:5173`，可通过 `TEST_URL` 指定本地预览地址。截图和检查结果写入已忽略的 `shots/`。覆盖主题切换与恢复、指点/返航、跨页飞行、项目筛选、手机布局、减少动态效果和模型失败降级。
+
+胶囊导航检查也复用同一 Playwright 环境，默认地址为 `http://127.0.0.1:4173`，可通过 `TEST_URL` 指定：
+
+```powershell
+node tools/test-capsules.mjs
+```
+
+覆盖六个页面、三个项目直达、键盘与搜索、当前页面提示、320–1440px 布局和手机触摸；站内切换检查 WebGL 画布保持同一个实例。
 
 ## Content and evidence
 
