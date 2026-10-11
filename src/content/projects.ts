@@ -1,4 +1,4 @@
-export const PROJECT_SCENES = ["reactor", "blueprint", "night-shift", "checklist", "notebook"] as const
+export const PROJECT_SCENES = ["reactor", "blueprint", "night-shift", "checklist", "notebook", "aviation"] as const
 export type ProjectScene = (typeof PROJECT_SCENES)[number]
 
 export interface Project {
@@ -40,7 +40,7 @@ export const projects: Project[] = [
   {
     slug: "desktop-helicopter", title: "Desktop Helicopter", tagline: "从 Blender 模型到会飞的桌面直升机", year: "2026", status: "进行中",
     role: "AI 辅助建模 · 桌面交互与展示", tags: ["3D", "桌面应用", "交互实验"], tech: ["Blender", "GLB", "Three.js", "Electron", "JavaScript"], emoji: "🚁",
-    gradient: ["#243B46", "#90A7AC"], cover: "/images/projects/desktop-helicopter.jpg", scene: "notebook", featured: true,
+    gradient: ["#0C2345", "#4674A3"], cover: "/images/projects/desktop-helicopter.jpg", scene: "aviation", featured: true,
     summary: "我把警用巡逻直升机从 Blender 模型推进到桌面交互实验：机身、主旋翼和尾旋翼独立控制，飞机可以起飞、巡逻、搜索和返航。后续又探索了桌面快捷控制与本地 Markdown 知识卡。这个项目把建模、实时渲染、飞行状态和交互连在了一起。网站版本仅提供飞行与模型展示。",
     retro: { before: "我以为有一个模型，再让它移动起来，就能成为桌面小工具。", actual: "飞行还需要处理旋翼、朝向、任务切换、停止位置与返回停机位，模型和交互之间有许多细节。", redo: "先做清楚的动作边界，再逐步添加交互；只保留能稳定展示的动作。" },
     chapters: [

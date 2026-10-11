@@ -59,3 +59,93 @@
   html[data-helicopter] .scene-shell{padding-right:0!important;padding-bottom:0!important}
   .scene-shell main .max-w-6xl{width:100%!important}
 }
+/* Flight is a temporary overlay: route palettes and the saved theme stay intact. */
+html[data-flight=active] {
+  --background: 218 62% 8%; --foreground: 210 40% 96%;
+  --card: 216 53% 12%; --card-foreground: 210 40% 96%;
+  --popover: 216 53% 12%; --popover-foreground: 210 40% 96%;
+  --secondary: 215 40% 19%; --secondary-foreground: 213 28% 89%;
+  --muted: 215 40% 19%; --muted-foreground: 213 22% 72%;
+  --accent: 215 40% 22%; --accent-foreground: 210 40% 96%;
+  --border: 214 34% 28%; --input: 214 34% 32%;
+  --brand: 211 100% 73%; --brand-strong: 214 90% 60%; --brand-ink: 218 62% 8%;
+  color-scheme: dark;
+}
+html[data-flight=active] .scene-shell {
+  background-image: linear-gradient(hsl(211 75% 70% / .045) 1px, transparent 1px), linear-gradient(90deg,hsl(211 75% 70% / .045) 1px, transparent 1px), radial-gradient(ellipse at 10% 0%,#123867 0%,transparent 60%);
+  background-size: 56px 56px,56px 56px,auto;
+}
+html[data-flight=active] :is(h1,h2,h3) {font-family:"Microsoft YaHei","PingFang SC",sans-serif;letter-spacing:-.025em}
+html[data-flight=active] .home-hero h1 {color:#f3f7ff;text-shadow:0 3px 40px #3584eb25}
+html[data-flight=active] .home-hero {background:linear-gradient(135deg,#0a234b44,transparent)}
+html[data-flight=active] .home-hero>div:first-child {opacity:.14}
+html[data-flight=active] .scene-preview {box-shadow:0 8px 30px #0002;border-color:#345376}
+html[data-flight=active] .scene-shell>header {background:#08182cec;border-bottom:1px solid #365777}
+html[data-flight=active] .helicopter-dock:not(.is-collapsed) {background:linear-gradient(150deg,#102c4eea,#061325f5);border-color:#365777}
+html[data-flight=active] .dock-header h2 {font-size:clamp(21px,2vw,30px);letter-spacing:.06em}
+html[data-flight=active] .dock-controls button:last-child {border-color:#c25a6d;color:#ffb6c2;background:#d63a5414}
+html[data-flight=active] .dock-reticle {border-color:#729ed536;color:#c1dbff0d}
+html[data-flight=active] .dock-reticle::before {border-color:#729ed526}
+html[data-flight=active] .field-note-card {box-shadow:5px 6px 0 #286ec522}
+.flight-atmosphere {position:fixed;inset:0;pointer-events:none;z-index:34;opacity:0;transition:opacity .65s}
+html[data-flight=active] .flight-atmosphere {opacity:1}
+.flight-atmosphere i {position:absolute;top:64px;width:35vw;height:3px;box-shadow:0 0 55px 12px currentColor;animation:aviation-beacon 3.4s ease-in-out infinite alternate}
+.flight-atmosphere i:first-child {left:0;color:#ff405e;background:#ff405e}
+.flight-atmosphere i:last-child {right:0;color:#368cff;background:#368cff;animation-delay:-3.4s}
+@keyframes aviation-beacon {from {opacity:.22} to {opacity:.65}}
+.flight-telemetry {position:fixed;top:77px;left:24px;z-index:39;display:flex;align-items:center;gap:8px;border:1px solid #3e6389;border-radius:6px;background:#091a2fed;color:#dcecff;padding:8px 10px;font:10px ui-monospace,monospace;letter-spacing:.05em;box-shadow:0 4px 20px #0002}
+.flight-telemetry b {font-weight:400;color:#9dbfe6}
+.flight-telemetry button {display:flex;align-items:center;gap:6px;border-left:1px solid #3e6389;padding-left:10px;margin-left:4px;color:#ffb6c2;min-height:24px}
+.signal-light {height:5px;width:5px;border-radius:50%;background:#76b7ff;box-shadow:0 0 8px #76b7ff}
+.dock-identity {display:flex;justify-content:space-between;gap:12px;font:10px ui-monospace,monospace;color:hsl(var(--muted-foreground));border-top:1px solid hsl(var(--border));padding-top:16px;margin-top:20px}
+.dock-reticle {position:absolute;inset:12% 0 7%;border:1px solid hsl(var(--border)/.5);border-radius:50%;display:grid;place-items:center;pointer-events:none;color:hsl(var(--foreground)/.035)}
+.dock-reticle::before {content:"";position:absolute;inset:12%;border:1px dashed hsl(var(--border)/.5);border-radius:50%}
+.dock-reticle>span {font:clamp(80px,16vw,240px) ui-monospace,monospace;letter-spacing:-.1em}
+.dock-reticle small {position:absolute;bottom:-28px;font:9px ui-monospace,monospace;letter-spacing:.12em;color:hsl(var(--muted-foreground))}
+.dock-controls button:focus-visible,.dock-header button:focus-visible,.flight-telemetry button:focus-visible {outline:2px solid hsl(var(--brand));outline-offset:4px}
+.dock-controls button:disabled:hover {background:hsl(var(--secondary)/.55);border-color:hsl(var(--border));color:inherit}
+.helicopter-dock.is-collapsed {top:auto;bottom:20px;transform:none;width:180px;padding:12px;border-radius:14px}
+.is-collapsed .dock-status {font-size:10px;margin-top:0}
+@media(min-width:1200px) {
+  html[data-helicopter=expanded] .scene-shell {padding-right:42vw}
+  html[data-helicopter=collapsed] .scene-shell {padding-right:0;padding-bottom:80px}
+  .helicopter-dock:not(.is-collapsed) {width:42vw;top:64px;padding:28px 32px 24px}
+  html[data-helicopter=collapsed] .hero-field-note {display:block}
+  html[data-helicopter=collapsed] .home-hero>div:nth-child(2) {grid-template-columns:1.5fr 1fr}
+  html[data-helicopter=expanded] .home-hero {min-height:88vh}
+  html[data-helicopter=expanded] .home-hero h1 {font-size:clamp(2.5rem,4vw,4.6rem)}
+}
+@media(max-width:1199px) {
+  .dock-identity {margin-top:10px;padding-top:10px}
+  .flight-telemetry {left:16px;top:74px}
+  .helicopter-dock:not(.is-collapsed) {padding:16px}
+  .dock-reticle small {bottom:-16px}
+}
+@media(max-width:480px) {
+  .flight-telemetry {left:12px;right:12px;justify-content:center;gap:6px}
+  .flight-telemetry b {display:none}
+  .helicopter-dock.is-collapsed {width:158px;bottom:max(12px,env(safe-area-inset-bottom))}
+  .helicopter-dock:not(.is-collapsed) {bottom:max(12px,env(safe-area-inset-bottom))}
+  .dock-stage {height:min(25dvh,200px)}
+  .dock-controls button {min-height:44px}
+  .dock-instruction {font-size:10px;margin-bottom:12px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .flight-atmosphere i {animation:none;opacity:.35}
+  .flight-atmosphere {transition:none}
+}
+@media print {
+  .flight-atmosphere,.flight-telemetry {display:none!important}
+  html[data-flight=active] {--background:0 0% 100%;--foreground:0 0% 7%;--card:0 0% 100%;--muted-foreground:0 0% 30%;--brand:214 65% 35%}
+}
+/* A compact launcher keeps project text readable, especially on phones. */
+.helicopter-dock.is-collapsed {width:224px;height:76px;padding:10px 10px 8px 72px;bottom:16px}
+.is-collapsed .dock-header {gap:4px}
+.is-collapsed .dock-header>div {min-width:0}
+.is-collapsed .dock-eyebrow {font-size:10px;letter-spacing:0;margin:0;white-space:nowrap}
+.is-collapsed .dock-stage {position:absolute;left:8px;top:9px;width:58px;height:54px;margin:0}
+.is-collapsed .dock-status {text-align:left;font-size:9px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.is-collapsed .dock-loading {font-size:9px}
+@media(max-width:480px) {
+  .helicopter-dock.is-collapsed {width:216px;height:72px;bottom:max(12px,env(safe-area-inset-bottom))}
+}

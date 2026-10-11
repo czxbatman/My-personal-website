@@ -77,6 +77,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 </span>
               ))}
             </div>
+            <div className="project-card-footer"><span>{({reactor: "REACTOR / 桌面助手", blueprint: "BLUEPRINT / 系统与工程", "night-shift": "NIGHT SHIFT / 互动实验", checklist: "CHECKLIST / 效率工具", notebook: "NOTEBOOK / 学习记录", aviation: "AVIATION / 飞行实验"})[project.scene ?? "notebook"]}</span><span aria-hidden="true">探索项目 ↗</span></div>
           </div>
         </article>
       </Link>

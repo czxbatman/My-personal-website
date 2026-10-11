@@ -50,6 +50,8 @@ export function usePageMeta(title?: string, desc?: string) {
 
 /* ---------- 全站状态 Context：让导航栏与命令面板共享主题/强调色 ---------- */
 export interface SiteState {
+  flightActive: boolean
+  setFlightActive(active: boolean): void
   dark: boolean
   toggleTheme(): void
   accent: Accent
@@ -66,7 +68,8 @@ export function useSiteState(): SiteState {
 }
 
 export function useCreateSiteState(): SiteState {
+  const [flightActive, setFlightActive] = useState(false)
   const { dark, toggle } = useTheme()
   const { accent, setAccent, cycle } = useAccent()
-  return { dark, toggleTheme: toggle, accent, setAccent, cycleAccent: cycle }
+  return { dark, toggleTheme: toggle, accent, setAccent, cycleAccent: cycle, flightActive, setFlightActive }
 }

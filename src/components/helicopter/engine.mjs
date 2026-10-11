@@ -55,7 +55,7 @@ export function createHelicopterScene({host,stage,onStatus,onError,reducedMotion
   });
   const controller=new WebHelicopterController(innerWidth,innerHeight,'right');
   let helicopter,mainRotor,tailRotor,lights,effects,modelSize,restBounds;
-  let disposed=false,ready=false,raf=0,last=0,clock=0,autoIntro=!reducedMotion,pointMode=false;
+  let disposed=false,ready=false,raf=0,last=0,clock=0,autoIntro=!reducedMotion&&innerWidth>=1200&&location.pathname==='/',pointMode=false;
   let inspectYaw=0,inspectPitch=0,drag=null,lastStatus='',draws=0,dockVisible=true;
   const query=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -64,7 +64,7 @@ export function createHelicopterScene({host,stage,onStatus,onError,reducedMotion
     host.dataset.state=snapshot.state;host.dataset.activity=snapshot.activity||'';
     host.dataset.x=snapshot.x.toFixed(2);host.dataset.y=snapshot.y.toFixed(2);
     host.dataset.pointMode=String(pointMode);host.dataset.ready=String(ready);
-    const status={state:snapshot.state,ready,pointMode};
+    const status={state:snapshot.state,ready,pointMode,activity:snapshot.activity};
     const statusKey=JSON.stringify(status);
     if(statusKey!==lastStatus){lastStatus=statusKey;onStatus(status);}
   }
@@ -131,12 +131,12 @@ export function createHelicopterScene({host,stage,onStatus,onError,reducedMotion
     autoIntro=false;inspectYaw=inspectPitch=0;
     if(action==='point'){
       pointMode=!pointMode;
+      if(pointMode)controller.command(controller.state==='PARKED'?'takeoff':'hold');
       if(!pointMode)controller.command('hold');
       publish();wake();return;
     }
     pointMode=false;
     if(action==='patrol'||action==='search')controller.command('performance',{name:action});
-    else if(action==='takeoff'&&controller.state!=='PARKED')controller.command('hold');
     else controller.command(action);
     publish();wake();
   }

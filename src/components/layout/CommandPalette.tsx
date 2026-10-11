@@ -28,7 +28,7 @@ const pages = [
 export function CommandPalette() {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
-  const { toggleTheme, cycleAccent } = useSiteState()
+  const { toggleTheme, cycleAccent, flightActive } = useSiteState()
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -86,6 +86,7 @@ export function CommandPalette() {
         <CommandSeparator />
         <CommandGroup heading="命令">
           <CommandItem
+            disabled={flightActive}
             onSelect={() => {
               setOpen(false)
               toggleTheme()
@@ -95,6 +96,7 @@ export function CommandPalette() {
             切换深色 / 浅色模式
           </CommandItem>
           <CommandItem
+            disabled={flightActive}
             onSelect={() => {
               setOpen(false)
               cycleAccent()

@@ -38,6 +38,7 @@ export default function ProjectDetail() {
       "night-shift": "Night-shift Test",
       checklist: "Checklist Utility",
       notebook: "Code Notebook",
+      aviation: "Aviation Workshop",
     }[project.scene ?? "notebook"]
 
   return (

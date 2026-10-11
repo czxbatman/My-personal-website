@@ -1,4 +1,4 @@
-import { Download, Printer } from "lucide-react"
+import { Printer } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { PageShell } from "@/components/shared"
@@ -18,19 +18,9 @@ export default function Resume() {
           <h1 className="mt-1 text-2xl font-bold">在线简历</h1>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="rounded-xl" onClick={() => window.print()}>
+          <Button className="rounded-xl" onClick={() => window.print()}>
             <Printer className="mr-1.5 h-4 w-4" />
             打印 / 导出 PDF
-          </Button>
-          <Button
-            className="rounded-xl"
-            asChild
-            title="放入 public/简历.pdf 后此按钮即为真实下载"
-          >
-            <a href="/简历.pdf" download>
-              <Download className="mr-1.5 h-4 w-4" />
-              下载 PDF
-            </a>
           </Button>
         </div>
       </div>

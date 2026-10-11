@@ -25,7 +25,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const { dark, toggleTheme, accent, setAccent } = useSiteState()
+  const { dark, toggleTheme, accent, setAccent, flightActive } = useSiteState()
   const { pathname } = useLocation()
   const canChooseAccent = pathname === "/" || pathname === "/about" || pathname === "/now"
 
@@ -87,7 +87,7 @@ export function Navbar() {
             <kbd className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px]">Ctrl K</kbd>
           </button>
 
-          {canChooseAccent && (
+          {canChooseAccent && !flightActive && (
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="切换强调色">
@@ -115,7 +115,7 @@ export function Navbar() {
             </Popover>
           )}
 
-          <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="切换深浅模式">
+          <Button variant="ghost" size="icon" onClick={toggleTheme} disabled={flightActive} title={flightActive ? "返航停稳后恢复你的主题" : "切换深浅模式"} aria-label={flightActive ? "警航模式中，停机后可切换主题" : "切换深浅模式"}>
             {dark ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
           </Button>
 
@@ -124,7 +124,8 @@ export function Navbar() {
             size="icon"
             className="lg:hidden"
             onClick={() => setMenuOpen((o) => !o)}
-            aria-label="打开菜单"
+            aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+            aria-expanded={menuOpen}
           >
             {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>

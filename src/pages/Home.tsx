@@ -90,9 +90,9 @@ function Hero() {
         </Reveal>
       </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground">
+      <a href="#featured" aria-label="向下查看精选项目" className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-border p-2 text-muted-foreground hover:text-brand">
         <ChevronDown className="h-5 w-5 animate-bounce" />
-      </div>
+      </a>
     </section>
   )
 }
@@ -105,7 +105,7 @@ function SkillMarquee() {
 function Featured() {
   const featured = projects.filter((p) => p.featured)
   return (
-    <section className="mx-auto max-w-6xl px-4 py-20">
+    <section id="featured" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-20">
       <SectionHeading
         eyebrow="Featured"
         title="精选项目"
