@@ -8,7 +8,7 @@ import { usePageMeta } from "@/hooks/use-site"
 
 export default function Resume() {
   usePageMeta("简历", "泽鑫的在线简历：AI 编程学习者与项目实践记录。")
-  const contact = [profile.location, "github.com/czxbatman"].join(" · ")
+  const contact = [profile.location, "github.com/czxbatman"].filter(Boolean).join(" · ")
 
   return (
     <PageShell>
@@ -60,7 +60,7 @@ export default function Resume() {
         <Separator className="my-6" />
 
         <section className="grid gap-8 sm:grid-cols-2">
-          <div>
+          {resume.education.length > 0 && <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">教育经历</h2>
             {resume.education.map((e) => (
               <div key={e.title} className="mt-4">
@@ -71,7 +71,7 @@ export default function Resume() {
                 <p className="text-sm text-muted-foreground">{e.org}</p>
               </div>
             ))}
-          </div>
+          </div>}
           <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">核心原则（节选）</h2>
             <ul className="mt-4 space-y-2">

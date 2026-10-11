@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react"
-import { motion, useMotionValue, useSpring } from "framer-motion"
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion"
 
 /* ---------- 滚动进入视口时的浮现动画 ---------- */
 export function Reveal({
@@ -13,13 +13,14 @@ export function Reveal({
   y?: number
   className?: string
 }) {
+  const reducedMotion = useReducedMotion()
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
+      initial={reducedMotion ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : delay, ease: "easeOut" }}
     >
       {children}
     </motion.div>
@@ -28,29 +29,30 @@ export function Reveal({
 
 /* ---------- 打字机（多句轮播） ---------- */
 export function Typewriter({ phrases, className }: { phrases: string[]; className?: string }) {
+  const reducedMotion = useReducedMotion()
   const [index, setIndex] = useState(0)
   const [text, setText] = useState("")
   const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
+    if (reducedMotion || phrases.length === 0) return
     const current = phrases[index % phrases.length]
     if (!deleting && text === current) {
       const t = setTimeout(() => setDeleting(true), 1800)
       return () => clearTimeout(t)
     }
     if (deleting && text === "") {
-      setDeleting(false)
-      setIndex((i) => (i + 1) % phrases.length)
-      return
+      const t = setTimeout(() => { setDeleting(false); setIndex((i) => (i + 1) % phrases.length) }, 35)
+      return () => clearTimeout(t)
     }
     const t = setTimeout(
       () => setText(deleting ? current.slice(0, text.length - 1) : current.slice(0, text.length + 1)),
       deleting ? 35 : 75
     )
     return () => clearTimeout(t)
-  }, [text, deleting, index, phrases])
+  }, [text, deleting, index, phrases, reducedMotion])
 
-  return <span className={`caret ${className ?? ""}`}>{text}</span>
+  return <span className={`${reducedMotion ? "" : "caret"} ${className ?? ""}`}>{reducedMotion ? phrases[0] : text}</span>
 }
 
 /* ---------- 磁性按钮：悬停时被光标轻微吸附 ---------- */
@@ -207,39 +209,4 @@ export function EmojiAvatar({ size = 120 }: { size?: number }) {
       </motion.span>
     </motion.button>
   )
-}
-
-/* ---------- Konami Code 彩蛋：↑↑↓↓←→←→BA 撒表情 ---------- */
-export function useKonami() {
-  useEffect(() => {
-    const seq = [
-      "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-      "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a",
-    ]
-    let pos = 0
-    const onKey = (e: KeyboardEvent) => {
-      pos = e.key === seq[pos] ? pos + 1 : e.key === seq[0] ? 1 : 0
-      if (pos === seq.length) {
-        pos = 0
-        emojiBurst()
-      }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [])
-}
-
-function emojiBurst() {
-  const emojis = ["🗺️", "🧭", "✨", "🎉", "🐱", "🤖"]
-  for (let i = 0; i < 28; i++) {
-    const el = document.createElement("span")
-    el.textContent = emojis[Math.floor(Math.random() * emojis.length)]
-    el.style.cssText = `position:fixed;z-index:9999;pointer-events:none;font-size:${16 + Math.random() * 20}px;left:${Math.random() * 100}vw;top:-40px;transition:all ${1.6 + Math.random() * 1.4}s cubic-bezier(.3,.6,.6,1);`
-    document.body.appendChild(el)
-    requestAnimationFrame(() => {
-      el.style.transform = `translateY(${window.innerHeight + 120}px) rotate(${(Math.random() - 0.5) * 720}deg)`
-      el.style.opacity = "0.9"
-    })
-    setTimeout(() => el.remove(), 3200)
-  }
 }

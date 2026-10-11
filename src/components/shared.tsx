@@ -28,10 +28,10 @@ export function SectionHeading({
 }
 
 /* ---------- 项目卡片（首页精选 & 列表页共用） ---------- */
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, projectsSearch }: { project: Project; projectsSearch?: string }) {
   return (
     <TiltCard className="h-full">
-      <Link to={`/projects/${project.slug}`} className="group block h-full">
+      <Link to={`/projects/${project.slug}`} state={projectsSearch === undefined ? undefined : { projectsSearch }} className="group block h-full">
         <article
           className="scene-preview flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/5"
           data-scene={project.scene}

@@ -46,7 +46,7 @@ export default function Projects() {
       <div className="my-5 flex items-center justify-between text-xs text-muted-foreground"><p role="status">显示 {filtered.length} / {projects.length} 个项目</p>{(query || tag !== "全部") && <button type="button" className="text-brand hover:underline" onClick={() => setParams(view === "list" ? {view:"list"} : {})}>重置筛选</button>}</div>
       {filtered.length === 0 ? <div className="grid place-items-center rounded-2xl border border-dashed px-6 py-16 text-center"><Search size={26} className="text-muted-foreground"/><p className="mt-4 text-sm">没有找到匹配的项目</p><p className="mt-2 text-xs text-muted-foreground">试试更短的关键词，或清除当前标签。</p><button type="button" className="mt-5 rounded-lg border px-4 py-2 text-sm hover:bg-secondary" onClick={() => setParams(view === "list" ? {view:"list"} : {})}>查看全部项目</button></div> :
         <div className={`project-results ${view === "list" ? "is-list" : "is-grid"}`}>
-          {filtered.map((p,i) => <Reveal key={p.slug} delay={Math.min(i * .04,.2)}><ProjectCard project={p}/></Reveal>)}
+          {filtered.map((p,i) => <Reveal key={p.slug} delay={Math.min(i * .04,.2)}><ProjectCard project={p} projectsSearch={params.toString()}/></Reveal>)}
         </div>}
     </PageShell>
   )

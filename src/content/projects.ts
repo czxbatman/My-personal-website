@@ -13,6 +13,7 @@ export interface Project {
   emoji: string
   gradient: [string, string]
   cover?: string
+  evidence?: string[]
   scene?: ProjectScene
   summary: string
   retro?: { before: string; actual: string; redo: string }
@@ -24,10 +25,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "opc-finance-agent", title: "慧算 · OPC 财务智能体", tagline: "先核对事实，再让工具计算，最后解释结果", year: "2026", status: "进行中",
+    role: "项目规划与验收 · AI 辅助实现", tags: ["AI Agent", "竞赛", "Web 应用"],
+    tech: ["Python", "Vue 3", "H5", "讯飞星辰", "Workflow", "规则校验", "自动化测试"], emoji: "🧮",
+    gradient: ["#173A42", "#4B9893"], scene: "blueprint", featured: true,
+    evidence: ["/images/gallery/finance-workflow-debug.jpg", "/images/gallery/finance-submission.jpg"],
+    summary: "这是我参与推进的财务 AI 比赛项目，也是一次较完整的需求、设计、开发、测试、部署和演示经历。当前产品是面向一人公司的 H5 演示：针对贸易采购凭证不齐的场景，分别分析增值税与企业所得税的影响，先追问缺少的事实，再确认摘要，最后交给 Python 复算。我提出需求、梳理边界并参与验收，AI 协助实现程序与测试。",
+    chapters: [
+      { title: "从一个具体问题开始", text: "经营者问“采购缺发票会怎样影响税费”时，不能直接给一个数字。系统先区分企业身份、采购事实、凭证条件与计算口径，再判断哪些事项可以估算、还缺什么资料。年度税费与拟分红是辅助场景，当前没有扩展为完整财务系统。" },
+      { title: "Agent 与 Python 怎样分工", text: "自然语言输入 → 事实筛选 → 缺口追问 → 摘要确认 → Python 计算 → 结果解释。Agent 帮助理解表达、组织追问和解释结果；Python 校验参数、支持范围与确认状态，并执行确定性计算。条件不清楚时先停止或追问，不让模型自行补出财务事实。" },
+      { title: "我怎样参与交付", text: "我围绕具体场景提出需求、明确输入输出与完成标准，借助 AI 推进后端、H5、测试和部署，再核对程序表现与演示材料。这个过程让我开始理解，代码能运行之后，还需要接口、状态、更正入口、测试和发布相互配合。项目也保留了规则复核与团队协作环节。" },
+      { title: "文档记录的进度", text: "截至 2026 年 9 月的项目记录，H5 已部署，支持多轮追问、明确更正、上下文短回答和摘要确认；虚构数据下已有自动化回归与公网流程记录。星辰画布重新发布及对应版本的完整联调仍需分别确认。这些是当时的工程记录，不代表本网站重新验收了财务服务。" },
+      { title: "当前边界与下一步", text: "当前用于限定场景的估算演示，不自动核验发票、账簿或申报状态，不自动报税。工程测试、专业规则审签与真实用户反馈需要分别积累；未来才逐步开放经过验证的场景，不将参赛提交或虚构测试包装成获奖与真实业务验证。" },
+    ],
+    retro: { before: "我最初更关注能不能把功能做出来。", actual: "财务场景让我意识到，事实不明确、规则未确认或用户没有确认摘要时，程序应该先停下来；模型、计算工具和验证要有清楚的分工。", redo: "先把场景边界和验证方式写清楚，再推进实现；材料、截图和程序始终使用同一套进度口径。" },
+    highlights: ["自然对话与确定性工具计算分工", "缺口追问、明确更正和摘要确认", "从需求到 H5 发布的工程实践"],
+  },
+  {
     slug: "brics-ai-training", title: "金砖人工智能应用创新备赛", tagline: "自己搭环境，也学着理解项目为什么能跑", year: "2026", status: "进行中",
     role: "备赛学习 · 环境配置与模块练习", tags: ["竞赛", "计算机视觉", "工程基础"],
     tech: ["Python", "PyTorch", "Ubuntu", "Docker", "ROS2", "Flask / FastAPI", "RAG / Agent"], emoji: "🛠️",
-    gradient: ["#203745", "#72A69E"], cover: "/images/gallery/brics-compose-smoke.jpg", scene: "blueprint", featured: true,
+    gradient: ["#203745", "#72A69E"], evidence: ["/images/gallery/brics-compose-smoke.jpg"], scene: "blueprint", featured: true,
     summary: "BRICS-FS-58 是我正在准备的人工智能应用创新赛项，训练涉及人脸表情识别、人体行为识别、具身智能平台部署与运维、智能体应用开发四个方向。这次我希望从环境和项目骨架开始，理解输入、处理、输出与验证之间的关系，逐步练习完整链路。四个方向是训练目标，目前没有全部完成。",
     retro: { before: "以前遇到环境问题，我很容易把报错直接交给 AI。", actual: "现在我尝试自己看目录、搭环境、查服务，用输出与接口判断有没有成功，而不只看命令是否报错。", redo: "执行前先说清楚当前目录、要改变什么、成功后应看到什么；做完再复述这一步的因果关系。" },
     chapters: [
@@ -52,7 +70,7 @@ export const projects: Project[] = [
   },
   {
     slug: "iron-man-v3", title: "Iron Man V3", tagline: "Desktop AI Learning Assistant —— 从桌面宠物长成的 AI 学习助手", year: "2026", status: "进行中",
-    role: "独立开发 · 产品 + 架构 + 开发 + 验证", tags: ["桌面应用", "AI Agent", "学习工具"],
+    role: "个人项目 · AI 辅助开发与验收", tags: ["桌面应用", "AI Agent", "学习工具"],
     tech: ["Python", "Vue", "PyWebView", "SQLite", "DeepSeek API", "LangChain", "PyInstaller", "Git"], emoji: "🤖",
     gradient: ["#361E25", "#B7362B"], cover: "/images/projects/iron-man-v3-01.png", scene: "reactor",
     summary: "从一个能悬浮在 Windows 桌面的 Iron Man 桌宠开始（悬浮/点击交互/双击动画/Todo/番茄钟），逐步长成包含 Python 桌面程序 + Vue Web UI + PyWebView 多窗口 + SQLite + DeepSeek API + LangChain 的混合桌面应用。它让我第一次真正理解：做出功能，和做好一个项目，并不是同一件事。",
@@ -66,8 +84,8 @@ export const projects: Project[] = [
   },
   {
     slug: "agent-skill-education", title: "AI Agent × Education", tagline: "2026 第三届教育信息技术应用创新大赛 · Agent Skill 设计", year: "2026", status: "进行中",
-    role: "独立开发 · Skill 设计 + Workflow + 验证", tags: ["AI Agent", "竞赛", "教育"], tech: ["AI Agent", "Agent Skill", "Workflow Design", "Multi-Agent"],
-    emoji: "🧠", gradient: ["#102C4B", "#1E7BA8"], cover: "/images/projects/agent-skill-education-01.png", scene: "blueprint",
+    role: "个人探索 · AI 辅助设计", tags: ["AI Agent", "竞赛", "教育"], tech: ["AI Agent", "Agent Skill", "Workflow Design", "Multi-Agent"],
+    emoji: "🧠", gradient: ["#102C4B", "#1E7BA8"], scene: "blueprint",
     summary: "龙虾 AI Agent Skill 开发赛道实践项目。核心问题不是“做一个 Demo”，而是：怎样把某一种能力真正封装成 Agent 可以可靠调用的 Skill？真正可靠的 Agent 系统更像软件工程：需要明确边界、状态、职责、输入输出、失败条件和验证方式。",
     retro: {
       before: "以前我很容易把 AI Agent 理解成“一个模型 + 一个很长的 Prompt”。",
@@ -78,9 +96,9 @@ export const projects: Project[] = [
   },
   {
     slug: "worker-website", title: "Worker Website 1.0", tagline: "Interactive Workplace Personality Test —— 打工人工作状态互动测试", year: "2026", status: "已完成",
-    role: "独立开发 · 设计 + 开发 + 部署", tags: ["Web 应用", "互动测试"], tech: ["Vue", "Vite", "Git", "GitHub", "Vercel"], emoji: "☕",
+    role: "个人项目 · AI 辅助设计、开发与部署", tags: ["Web 应用", "互动测试"], tech: ["Vue", "Vite", "Git", "GitHub", "Cloudflare Pages"], emoji: "☕",
     gradient: ["#6B2448", "#EF6A45"], cover: "/images/projects/worker-website-01.png", scene: "night-shift",
-    summary: "以“打工人工作状态”为主题的互动测试网页，答题后得到对应的工作人格/状态结果。它对我最重要的意义是第一次把 Vue 项目从 localhost 送到 Public URL：Vue/Vite → Production Build → Git → GitHub → Vercel → 公网可访问。",
+    summary: "以“打工人工作状态”为主题的互动测试网页，答题后得到对应的工作人格/状态结果。它对我最重要的意义是把 Vue 项目从 localhost 送到公开网站：Vue/Vite → Production Build → Git → GitHub → Cloudflare Pages。保留的截图记录了当时在 Cloudflare Pages 上的部署成功。",
     retro: {
       before: "以前我对 GitHub 的理解更像“存放代码的地方”；以为页面能打开就是项目完成。",
       actual: "Git、GitHub 和部署平台不是三个孤立工具，而是一条交付链路；“项目完成”的标准变成了：一个陌生人是否真的能够访问和使用它。",

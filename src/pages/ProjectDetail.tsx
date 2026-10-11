@@ -1,13 +1,18 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { ArrowLeft, ArrowRight, Check, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PageShell } from "@/components/shared"
 import { Reveal } from "@/components/fx"
 import { projects } from "@/content/projects"
+import { galleryItems } from "@/content/gallery"
 import { usePageMeta } from "@/hooks/use-site"
 
 export default function ProjectDetail() {
   const { slug } = useParams()
+  const location = useLocation()
+  const projectsSearch = typeof location.state?.projectsSearch === "string" ? location.state.projectsSearch : ""
+  const backTo = projectsSearch ? `/projects?${new URLSearchParams(projectsSearch)}` : "/projects"
+  const navigationState = { projectsSearch }
   const index = projects.findIndex((p) => p.slug === slug)
   const project = projects[index]
   usePageMeta(project ? project.title : "项目不存在")
@@ -19,7 +24,7 @@ export default function ProjectDetail() {
           <span className="text-5xl">🗺️</span>
           <h1 className="mt-4 text-2xl font-bold">没有找到这个项目</h1>
           <Button asChild className="mt-6 rounded-xl">
-            <Link to="/projects">
+            <Link to={backTo}>
               <ArrowLeft className="mr-1.5 h-4 w-4" />
               返回全部项目
             </Link>
@@ -44,7 +49,7 @@ export default function ProjectDetail() {
   return (
     <PageShell scene={project.scene}>
       <Link
-        to="/projects"
+        to={backTo}
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-brand"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -99,7 +104,7 @@ export default function ProjectDetail() {
           ) : (
             <>
               <div className="dot-pattern absolute inset-0" />
-              <span className="text-7xl drop-shadow-lg sm:text-8xl">{project.emoji}</span>
+              <div className="relative text-center"><span className="text-7xl drop-shadow-lg sm:text-8xl">{project.emoji}</span><p className="mt-4 text-sm text-white/90">{project.title}</p></div>
             </>
           )}
           <span className="absolute bottom-3 right-4 rounded-full bg-black/30 px-3 py-1 text-xs text-white/90 backdrop-blur-sm">
@@ -112,6 +117,14 @@ export default function ProjectDetail() {
         <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">概述</h2>
         <p className="mt-3 leading-relaxed text-muted-foreground">{project.summary}</p>
       </section>
+
+      {project.evidence && <section className="mt-10 max-w-4xl">
+        <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">相关过程记录</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">{project.evidence.map(src => {
+          const item = galleryItems.find(image => image.src === src)
+          return <Link key={src} to={`/gallery?image=${encodeURIComponent(src)}`} className="overflow-hidden rounded-xl border bg-card hover:border-brand/40"><img src={src} alt={item?.title ?? project.title + " 过程记录"} loading="lazy" className="aspect-[4/3] w-full object-contain"/><div className="p-4"><h3 className="text-sm font-medium">{item?.title ?? "项目记录"} ↗</h3><p className="mt-2 text-xs leading-6 text-muted-foreground">{item?.description}</p></div></Link>
+        })}</div>
+      </section>}
 
       {project.chapters && (
         <section className="mt-10 grid max-w-4xl gap-4">
@@ -175,6 +188,7 @@ export default function ProjectDetail() {
         {prev ? (
           <Link
             to={`/projects/${prev.slug}`}
+            state={navigationState}
             className="group rounded-2xl border bg-card p-5 transition-colors hover:border-brand/40"
           >
             <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -190,6 +204,7 @@ export default function ProjectDetail() {
         {next && (
           <Link
             to={`/projects/${next.slug}`}
+            state={navigationState}
             className="group rounded-2xl border bg-card p-5 text-right transition-colors hover:border-brand/40"
           >
             <p className="flex items-center justify-end gap-1.5 text-xs text-muted-foreground">

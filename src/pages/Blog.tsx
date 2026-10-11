@@ -29,7 +29,7 @@ export default function Blog() {
                 </span>
                 <span className="inline-flex items-center gap-1">
                   <Clock className="h-3.5 w-3.5" />
-                  {p.minutes} 分钟
+                  {p.seed ? "草稿" : `${p.minutes} 分钟`}
                 </span>
               </div>
               <h3 className="mt-3 font-semibold leading-snug transition-colors group-hover:text-brand">

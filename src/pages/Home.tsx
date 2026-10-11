@@ -144,6 +144,7 @@ function GrowthJourney() {
               </div>
               <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
+              {item.projectSlug && <Link to={`/projects/${item.projectSlug}`} className="mt-4 inline-block text-xs text-brand hover:underline">看这段经历的项目记录 ↗</Link>}
             </article>
           </Reveal>
         ))}
@@ -224,7 +225,7 @@ function Bento() {
         </BentoCard>
 
         <BentoCard to={`/blog/${latestPost.slug}`}>
-          <p className="font-mono text-xs uppercase tracking-widest text-brand">✍️ 最新文章</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-brand">{latestPost.seed ? "✍️ 写作草稿" : "✍️ 最新文章"}</p>
           <p className="mt-3 line-clamp-2 text-sm font-medium leading-relaxed">{latestPost.title}</p>
           <p className="mt-2 font-mono text-xs text-muted-foreground">{latestPost.date}</p>
         </BentoCard>

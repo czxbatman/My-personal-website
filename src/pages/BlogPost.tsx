@@ -52,14 +52,14 @@ export default function BlogPost() {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-3.5 w-3.5" />
-              {post.minutes} 分钟阅读
+              {post.seed ? "草稿 · 待完善" : `${post.minutes} 分钟阅读`}
             </span>
           </div>
         </header>
 
         {post.seed && (
           <p className="mt-6 rounded-xl bg-amber-400/10 px-4 py-2.5 text-sm text-amber-600 dark:text-amber-400">
-            🌱 这是一篇种子文章：标题和骨架已就位，正文等真实内容补充。
+            🌱 这是 {post.date} 的写作草稿，尚未形成完整文章；其中的协作想法属于当时阶段，我现在的学习方式见“关于”页。 <Link to="/about" className="underline">查看当前状态 ↗</Link>
           </p>
         )}
 

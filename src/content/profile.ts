@@ -7,7 +7,7 @@ export const profile = {
   name: "泽鑫",
   avatar: null as string | null,
   status: "AI 编程学习者 · 大学生",
-  location: "北京",
+  location: null as string | null,
   email: null as string | null,
   headline: "和 AI 一起做，\n也一点点学懂。",
   typewriter: [
@@ -56,25 +56,43 @@ export const skills = {
 
 export const resume = {
   summary:
-    "正在北京学习 AI 编程方向的大学生。通过真实项目连接产品、代码、架构与工程流程，关注 AI Agent、AI 辅助开发、Vue、Python，以及 AI 在学习和工作场景中的实际应用。",
+    "正在学习 AI 编程的大学生。通过财务 AI、桌面助手与 3D 交互项目补开发基础，参与需求梳理、AI 辅助实现和验收；当前准备专升本与金砖比赛，英语持续学习，数学与 C 语言处于准备阶段。",
   experience: [
+    {
+      period: "2026",
+      title: "慧算 · OPC 财务智能体",
+      org: "项目规划与验收 · AI 辅助实现",
+      points: ["参与限定财务场景的需求、设计、开发、测试、部署与演示", "以 H5 串联事实核对、缺口追问、摘要确认与 Python 确定性计算", "保留虚构数据下的工程记录，区分专业审签、完整联调与真实用户验证"],
+    },
+    {
+      period: "2026 — 至今",
+      title: "Desktop Helicopter",
+      org: "AI 辅助建模与交互实践",
+      points: ["把 Blender 模型连接到桌面飞行与网页展示", "网页实现巡逻、搜索、指点飞行、返航与停机拖动旋转"],
+    },
+    {
+      period: "准备中",
+      title: "金砖人工智能应用创新备赛",
+      org: "基础环境与模块学习",
+      points: ["学习 Linux、Python 虚拟环境、文件结构与部署排错", "四个训练方向尚未全部完成，逐步记录输入、输出与验证"],
+    },
     {
       period: "2026 — 至今",
       title: "Iron Man V3 Desktop AI Learning Assistant",
-      org: "独立开发",
+      org: "个人项目 · AI 辅助开发与验收",
       points: ["从桌面宠物扩展到 Todo、番茄钟与 AI 学习助手", "实践 Python、Vue、PyWebView、SQLite、DeepSeek API 与 LangChain 的混合架构"],
     },
     {
       period: "2026 — 至今",
       title: "AI Agent × Education",
-      org: "独立开发 · 龙虾 AI Agent Skill 开发赛道",
+      org: "个人探索 · AI 辅助 Skill 设计",
       points: ["围绕 Trigger、Input、Output 与 Workflow 设计可调用 Skill", "探索 Planner、Executor、Reviewer、Tester 的多 Agent 协作"],
     },
     {
       period: "2026",
       title: "Worker Website 1.0",
-      org: "独立开发",
-      points: ["完成打工人工作状态互动测试的设计与开发", "走通 Vue/Vite 构建、GitHub 与 Vercel 公网部署链路"],
+      org: "个人项目 · AI 辅助开发",
+      points: ["完成打工人工作状态互动测试的设计与开发", "走通 Vue/Vite 构建、GitHub 与 Cloudflare Pages 公网部署链路"],
     },
     {
       period: "2026",
@@ -89,12 +107,5 @@ export const resume = {
       points: ["用组件、ref/computed、Props、Event 和 UI State 持续验证概念", "保留学习过程与实验记录作为可见证据"],
     },
   ],
-  education: [
-    {
-      period: "待补充",
-      title: "大学生",
-      org: "北京 · 学校、专业与年份待补充",
-      points: [],
-    },
-  ],
+  education: [] as { period: string; title: string; org: string; points: string[] }[],
 }
