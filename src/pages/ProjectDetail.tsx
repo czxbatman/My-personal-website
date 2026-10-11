@@ -112,6 +112,17 @@ export default function ProjectDetail() {
         <p className="mt-3 leading-relaxed text-muted-foreground">{project.summary}</p>
       </section>
 
+      {project.chapters && (
+        <section className="mt-10 grid max-w-4xl gap-4">
+          {project.chapters.map((chapter) => (
+            <article key={chapter.title} className="field-note-card rounded-2xl border bg-card p-6">
+              <h2 className="font-semibold">{chapter.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{chapter.text}</p>
+            </article>
+          ))}
+        </section>
+      )}
+
       {project.retro && (
         <section className="mt-10 max-w-4xl">
           <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-brand">复盘 · 三段式</h2>

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { ArrowRight, ChevronDown, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
-  EmojiAvatar,
   Magnetic,
   Marquee,
   ParallaxBlobs,
@@ -15,13 +14,14 @@ import { projects } from "@/content/projects"
 import { principles } from "@/content/principles"
 import { posts } from "@/content/posts"
 import { now } from "@/content/now"
+import { growth } from "@/content/growth"
 import { usePageMeta } from "@/hooks/use-site"
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[92vh] items-center overflow-hidden">
+    <section className="home-hero relative flex min-h-[84vh] items-center overflow-hidden">
       <ParallaxBlobs />
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 pt-16 md:grid-cols-[1.4fr_auto]">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 pb-16 pt-32 lg:grid-cols-[1.5fr_1fr]">
         <div>
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
@@ -34,8 +34,8 @@ function Hero() {
           </Reveal>
 
           <Reveal delay={0.08}>
-            <p className="mt-6 font-mono text-sm text-brand">{"// 你好，我是"}</p>
-            <h1 className="mt-2 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            <p className="mt-6 font-mono text-sm text-brand">{"// 泽鑫 · Learning by building"}</p>
+            <h1 className="mt-3 whitespace-pre-line text-[clamp(2.4rem,4.8vw,4.3rem)] font-bold leading-[1.15] tracking-tight">
               {profile.headline}
             </h1>
           </Reveal>
@@ -76,10 +76,16 @@ function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.2} className="relative mx-auto hidden md:block">
-          <div className="absolute -inset-6 animate-[spin_14s_linear_infinite] rounded-full border-2 border-dashed border-brand/30" />
-          <div className="animate-float">
-            <EmojiAvatar size={160} />
+        <Reveal delay={0.2} className="hero-field-note relative hidden lg:block">
+          <div className="field-note-card rounded-2xl border bg-card/70 p-7 backdrop-blur">
+            <p className="font-mono text-xs uppercase tracking-[.2em] text-brand">Current chapter / 2026.10</p>
+            <h2 className="mt-5 text-2xl font-semibold leading-snug">先理解一个问题，<br />再向前走一步。</h2>
+            <div className="mt-6 space-y-4 border-t pt-5 text-sm">
+              <p><span className="mr-3 text-brand">01</span>专升本 · 英语持续学习</p>
+              <p><span className="mr-3 text-brand">02</span>金砖备赛 · 补环境与工程基础</p>
+              <p><span className="mr-3 text-brand">03</span>真实项目 · 留下过程与证据</p>
+            </div>
+            <Link to="/about" className="mt-6 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-brand">读我的成长经历 <ArrowRight className="h-3 w-3" /></Link>
           </div>
         </Reveal>
       </div>
@@ -103,7 +109,7 @@ function Featured() {
       <SectionHeading
         eyebrow="Featured"
         title="精选项目"
-        desc="每一个都按「我原来以为 → 实际上 → 如果重来」的复盘结构写成了案例研究。"
+        desc="做过的事、正在补的基础，以及过程里改变的想法。"
         action={
           <Link
             to="/projects"
@@ -113,10 +119,32 @@ function Featured() {
           </Link>
         }
       />
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="featured-grid grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((p, i) => (
           <Reveal key={p.slug} delay={i * 0.08}>
             <ProjectCard project={p} />
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function GrowthJourney() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-20">
+      <SectionHeading eyebrow="My journey" title="从做出来，到慢慢学懂" desc="我的学习不是一条直线，每一次项目都让我多看清一点。" />
+      <div className="growth-grid grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {growth.map((item, index) => (
+          <Reveal key={item.title} delay={index * .04}>
+            <article className="field-note-card h-full rounded-2xl border bg-card p-6">
+              <div className="flex items-center justify-between gap-3 text-xs">
+                <span className="font-mono text-brand">0{index + 1} / {item.date}</span>
+                <span className="rounded-full bg-secondary px-2 py-1 text-muted-foreground">{item.status}</span>
+              </div>
+              <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.text}</p>
+            </article>
           </Reveal>
         ))}
       </div>
@@ -217,12 +245,13 @@ function Bento() {
 }
 
 export default function Home() {
-  usePageMeta()
+  usePageMeta(undefined, "泽鑫的真实项目与成长记录：AI 辅助开发、金砖备赛、专升本学习，以及可互动的 3D 直升机。")
   return (
     <>
       <Hero />
       <SkillMarquee />
       <Featured />
+      <GrowthJourney />
       <Bento />
     </>
   )

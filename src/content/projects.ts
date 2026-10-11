@@ -19,9 +19,37 @@ export interface Project {
   highlights?: string[]
   links?: { demo?: string; source?: string }
   featured?: boolean
+  chapters?: { title: string; text: string }[]
 }
 
 export const projects: Project[] = [
+  {
+    slug: "brics-ai-training", title: "金砖人工智能应用创新备赛", tagline: "自己搭环境，也学着理解项目为什么能跑", year: "2026", status: "进行中",
+    role: "备赛学习 · 环境配置与模块练习", tags: ["竞赛", "计算机视觉", "工程基础"],
+    tech: ["Python", "PyTorch", "Ubuntu", "Docker", "ROS2", "Flask / FastAPI", "RAG / Agent"], emoji: "🛠️",
+    gradient: ["#203745", "#72A69E"], cover: "/images/gallery/brics-compose-smoke.jpg", scene: "blueprint", featured: true,
+    summary: "BRICS-FS-58 是我正在准备的人工智能应用创新赛项，训练涉及人脸表情识别、人体行为识别、具身智能平台部署与运维、智能体应用开发四个方向。这次我希望从环境和项目骨架开始，理解输入、处理、输出与验证之间的关系，逐步练习完整链路。四个方向是训练目标，目前没有全部完成。",
+    retro: { before: "以前遇到环境问题，我很容易把报错直接交给 AI。", actual: "现在我尝试自己看目录、搭环境、查服务，用输出与接口判断有没有成功，而不只看命令是否报错。", redo: "执行前先说清楚当前目录、要改变什么、成功后应看到什么；做完再复述这一步的因果关系。" },
+    chapters: [
+      { title: "四个训练方向", text: "人脸表情识别练习模型训练、ONNX 推理与网页接口；人体行为识别练习视频、姿态和行为分析；平台模块练习 Docker、ROS2 及组件部署；Agent 模块练习知识检索、工具调用和自然语言控制。" },
+      { title: "目前在做什么", text: "目前重点是 Ubuntu、Python 虚拟环境、文件结构和部署基础。已有的学习记录包含一次 Docker Compose 服务检查：用 curl 访问本地端口，收到 HTTP 200。这说明该服务在当时可响应，不代表四个模块全部通过。" },
+      { title: "我的练习方式", text: "按“认识 → 预测 → 执行 → 验证 → 复述”推进。每一步尽量弄清谁接收输入、谁产生输出，出现问题时先判断应该查哪一层，再向 AI 提问。" },
+    ],
+    highlights: ["把 Linux、Python 与环境意识纳入学习", "练习从命令输出、接口和日志验证结果", "保留问题与排错过程，而不是只展示成功画面"],
+  },
+  {
+    slug: "desktop-helicopter", title: "Desktop Helicopter", tagline: "从 Blender 模型到会飞的桌面直升机", year: "2026", status: "进行中",
+    role: "AI 辅助建模 · 桌面交互与展示", tags: ["3D", "桌面应用", "交互实验"], tech: ["Blender", "GLB", "Three.js", "Electron", "JavaScript"], emoji: "🚁",
+    gradient: ["#243B46", "#90A7AC"], cover: "/images/projects/desktop-helicopter.jpg", scene: "notebook", featured: true,
+    summary: "我把警用巡逻直升机从 Blender 模型推进到桌面交互实验：机身、主旋翼和尾旋翼独立控制，飞机可以起飞、巡逻、搜索和返航。后续又探索了桌面快捷控制与本地 Markdown 知识卡。这个项目把建模、实时渲染、飞行状态和交互连在了一起。网站版本仅提供飞行与模型展示。",
+    retro: { before: "我以为有一个模型，再让它移动起来，就能成为桌面小工具。", actual: "飞行还需要处理旋翼、朝向、任务切换、停止位置与返回停机位，模型和交互之间有许多细节。", redo: "先做清楚的动作边界，再逐步添加交互；只保留能稳定展示的动作。" },
+    chapters: [
+      { title: "Blender 建模", text: "模型包含玻璃、机身表面细节、起落架与警用设备，保存可编辑的 Blender 源文件和多角度渲染图。实时展示使用自包含 GLB，机身与两组旋翼保留独立节点。" },
+      { title: "桌面飞行与表演", text: "桌面版用 Electron 与 Three.js 显示模型，以控制器统一处理起飞、悬停、目标移动和返航。当前表演保留巡逻与搜索，包含旋翼、警灯和搜索灯等视觉细节。" },
+      { title: "知识卡探索与网页边界", text: "桌面版探索本地 Markdown 笔记索引、最近修改和学习打开记录；这些记录不代表全部阅读历史。网页复用模型与飞行动作，访客可拖动看模型、点击空白处指点飞行，不连接我的本地笔记或桌面系统。" },
+    ],
+    highlights: ["独立旋翼节点与实时灯光", "巡逻、搜索和返航使用统一飞行控制器", "网页展示支持停机旋转与访客指点飞行"],
+  },
   {
     slug: "iron-man-v3", title: "Iron Man V3", tagline: "Desktop AI Learning Assistant —— 从桌面宠物长成的 AI 学习助手", year: "2026", status: "进行中",
     role: "独立开发 · 产品 + 架构 + 开发 + 验证", tags: ["桌面应用", "AI Agent", "学习工具"],

@@ -1,3 +1,7 @@
+import { projects } from "./projects"
+import { galleryItems } from "./gallery"
+import { principles } from "./principles"
+
 /** 全站身份、技能与简历的唯一数据源。 */
 export const profile = {
   name: "泽鑫",
@@ -5,19 +9,19 @@ export const profile = {
   status: "AI 编程学习者 · 大学生",
   location: "北京",
   email: null as string | null,
-  headline: "Building with AI, learning by building.",
+  headline: "和 AI 一起做，\n也一点点学懂。",
   typewriter: [
     "Building with AI, learning by building.",
     "不仅让 AI 帮我把东西做出来，也要真正理解自己正在构建什么。",
-    "AI Agent · AI Coding · Vue · Python",
+    "自己动手，遇到问题问懂了再继续。",
   ],
   intro:
-    "我是一名正在学习 AI 编程的大学生，坐标北京。目前主要关注 AI Agent、AI 辅助开发、Vue、Python，以及 AI 在学习和工作场景中的实际应用。相比单纯学习某一个框架，我更喜欢从真实项目开始：先想清楚自己到底想解决什么问题，再一点点把产品、代码、架构和工程流程连接起来。",
+    "我是泽鑫，一名正在学习 AI 编程的大学生。从桌面小软件到财务 AI 项目，我在真实实践中慢慢补基础。现在一边准备专升本，一边准备金砖比赛；AI 更多是我的老师和信息整理员，帮我弄懂问题，再继续动手。",
   socials: [{ label: "GitHub", href: "https://github.com/czxbatman", todo: false }],
   stats: [
-    { value: "5", label: "真实项目" },
-    { value: "5", label: "验证原则" },
-    { value: "14", label: "学习截图" },
+    { value: String(projects.length), label: "项目记录" },
+    { value: String(principles.length), label: "验证原则" },
+    { value: String(galleryItems.length), label: "学习截图" },
     { value: "∞", label: "待探索" },
   ],
 }

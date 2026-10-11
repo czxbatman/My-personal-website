@@ -20,7 +20,7 @@ export default function Now() {
         }
       />
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="now-columns grid gap-4 md:grid-cols-3">
         {[
           { icon: Flag, title: "正在做", items: now.doing, tint: "text-brand" },
           { icon: BookOpen, title: "正在学", items: now.learning, tint: "text-sky-500" },

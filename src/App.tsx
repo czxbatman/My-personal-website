@@ -23,6 +23,7 @@ import Resume from "@/pages/Resume"
 import Now from "@/pages/Now"
 import About from "@/pages/About"
 import NotFound from "@/pages/NotFound"
+import Helicopter from "@/components/helicopter/Helicopter"
 
 /* bundle.html 以 file:// 打开时自动降级为 Hash 路由 */
 const Router = window.location.protocol === "file:" ? HashRouter : BrowserRouter
@@ -96,6 +97,7 @@ function SceneShell() {
       <AnimatedRoutes />
       <Footer />
       <CommandPalette />
+      <Helicopter />
     </div>
   )
 }

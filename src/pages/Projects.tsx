@@ -30,7 +30,7 @@ export default function Projects() {
       <SectionHeading
         eyebrow="Projects"
         title="作品索引柜"
-        desc="这些项目记录的不只是我“做过什么”，更像一条学习轨迹：从理解前端基础，到完成真实部署；从功能堆叠，到开始理解架构；从让 AI 帮我写代码，到尝试设计 Agent、Skill 和完整工作流。"
+        desc="从借助 AI 做出小软件，到经历财务项目交付，再到金砖备赛与基础学习。这里记录每个项目做了什么，以及我正在学懂什么。"
       />
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center">

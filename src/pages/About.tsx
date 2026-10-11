@@ -4,6 +4,7 @@ import { Reveal } from "@/components/fx"
 import { skills } from "@/content/profile"
 import { principles } from "@/content/principles"
 import { now } from "@/content/now"
+import { growthStory } from "@/content/growth"
 import { usePageMeta } from "@/hooks/use-site"
 
 const learningModel = [
@@ -16,21 +17,13 @@ const learningModel = [
 ]
 
 const aiWorkflow = [
-  { step: "01", title: "分析代码", desc: "先理解现有模块、数据流和问题所在，再决定改动边界。" },
-  { step: "02", title: "重构项目", desc: "让 AI 协助拆分职责、比较方案；架构取舍由我判断。" },
-  { step: "03", title: "寻找方案", desc: "把真实约束放进上下文，比较可行路径而不是只收集答案。" },
-  { step: "04", title: "检查与验证", desc: "持续研究 Agent、Skill 和多 Agent 协作，也持续检查结果是否可靠。" },
+  { step: "01", title: "自己产生问题", desc: "先想清楚我想理解什么，以及为什么需要这一步。" },
+  { step: "02", title: "动手尝试", desc: "自己看目录、执行命令和检查输出，建立实际感受。" },
+  { step: "03", title: "问懂了再继续", desc: "遇到不懂的地方问 AI，让它解释原因和概念，再继续实践。" },
+  { step: "04", title: "整理与判断", desc: "把过程整理成记录，分清已验证的结果、当前学习和后续计划。" },
 ]
 
-const story = [
-  "你好，我是泽鑫。现在是一名正在学习 AI 编程相关方向的大学生，坐标北京。",
-  "我的技术学习过程并不是一条特别标准的路线。最开始，我也会跟着课程学习 Vue、Python 和各种框架知识。但慢慢我发现，只听懂一个知识点，并不代表真正会使用它。ref()、computed()、组件、API、数据库……单独看的时候都不算特别困难。真正困难的是：当一个真实项目摆在面前时，我到底应该把这些东西放在哪里，它们之间又应该怎样协作。",
-  "所以后来，我越来越倾向于通过项目学习。我做过 Vue3 + TypeScript 的 Todo List，也尝试过设计互动网页，将 Vue 项目真正部署到公网。而目前对我影响最大的项目，是 Iron Man V3 Desktop AI Learning Assistant。",
-  "它最开始只是一只很简单的桌面宠物。后来我不断往里面加入 Todo List、番茄钟、Vue 页面、SQLite、DeepSeek API、LangChain 和 AI Learning Assistant。功能越来越多以后，我第一次真正遇到了软件项目中那些课程很难直接告诉我的问题：项目结构开始混乱、模块职责变得模糊、源码能正常运行但打包以后却出现问题、开发环境里的成功并不代表交给别人以后还能正常运行。",
-  "也是从这个阶段开始，我对 AI Coding 的理解发生了一点变化。以前我更关心“怎么让 AI 把这段代码写出来？”现在我越来越关心：“这个功能为什么要这样设计？”“它应该属于系统的哪一层？”“AI 给出的方案真的适合这个项目吗？”“我怎样证明这个结果是对的？”",
-  "我认同一个原则：AI 可以帮我提高执行速度，但不能替我建立判断能力。",
-  "我真正感兴趣的问题并不是“AI 还能生成什么？”而是“AI 能不能真正成为一种帮助人学习、工作和解决问题的新型工具？”",
-]
+const story = growthStory
 
 export default function About() {
   usePageMeta("关于", "泽鑫的 AI 编程观、真实项目复盘与学习记录。")
@@ -72,9 +65,9 @@ export default function About() {
         <SectionHeading
           eyebrow="Workflow"
           title="我和 AI 协作的方式"
-          desc="AI 提高执行速度，判断能力自己建立。"
+          desc="AI 更多是老师与信息整理员，问题由我提出，实践和判断慢慢自己完成。"
         />
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="workflow-grid grid gap-4 md:grid-cols-4">
           {aiWorkflow.map((step, index) => (
             <Reveal key={step.step} delay={index * 0.06}>
               <div className="relative h-full rounded-2xl border bg-card p-5">
@@ -114,11 +107,9 @@ export default function About() {
       <section className="mt-16 grid gap-4 md:grid-cols-2">
         <Reveal>
           <div className="h-full rounded-2xl border bg-card p-6">
-            <h3 className="font-semibold">⚡ 正在构建</h3>
+            <h3 className="font-semibold">⚡ 当前重心</h3>
             <ul className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
-              <li>🤖 AI Agent & Agent Skill：研究 Tool Calling、多 Agent 协作与人何时介入。</li>
-              <li>🧠 AI Learning Assistant：持续迭代学习记录、SQLite、笔记与学习回顾。</li>
-              <li>🏆 AI Agent Skill Competition：用真实竞赛验证 Skill 的边界与执行方式。</li>
+              {now.doing.map((item) => <li key={item}>{item}</li>)}
             </ul>
             <div className="mt-4 flex flex-wrap gap-1.5">
               {skills.tools.map((tool) => (
